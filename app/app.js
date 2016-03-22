@@ -1,4 +1,5 @@
 (function(){
-	var app = angular.module('socialPath', ['ngRoute']);
+	'use strict';
 
+	angular.module('movieApp', ['ui.router']);
 })();

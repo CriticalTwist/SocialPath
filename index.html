@@ -1,20 +1,91 @@
 <!DOCTYPE html>
-<html ng-app="socialApp">
-	<head>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-	</head>
-	<body>
+<html ng-app="movieApp">
+<head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+	<!-- <div ng-controller="movieController">
+		<form ng-submit="getMovies()">
+			<label for="film">Search for film</label><br />
+			<div class="input-group">
+				<input type="text" name="film" ng-model="filmName">
+				<button ng-click="getMovies()">Search</button>
+	
+			</div>
+		</form>
+	</div> -->
+            <div ng-controller="movieController">
+            	<div class="container">
+            		<div class="row">
+	            		<form ng-submit="getMovies()" class="col-md-4">
+		                    <label for="film">Search for film</label><br />
+		                    <div class="input-group">
+		                        <input type="text" name="film" ng-model="movieName">
+		                        
+		                        <button id="btn" ng-click="getMovies()">Search</button>
+		                    </div>
+		                </form>
 
-		<div id="fb-root"></div>
+		                <form class="col-md-8">
+		                    <label for="filterList">Filter list of Movies</label><br />
+		                    <div class="input-group">
+		                        <input type="text" name="filterList" ng-model="filterBy">
+		                        
+		                    </div>
+		                </form>
+	            	</div>
+		            <section ng-hide"movieDetail != null">
+		            	<div class="row">
+		                	<!-- <button class="btn btn-primary" ng-click="getMovies()">search</button> -->
+			                <div class="movie-item col-md-4" ng-repeat="movie in movies.results | filter:filterBy" ng-click="getInfo(movie.id)" ng-model="movie">
 
-		<div ng-app="socialPath">
-		    <facebook app-id="195269414175736"></facebook>
+			                	<h3>{{movie.title}}</h3>
 
-		    <facebook-like layout="button_count"></facebook-like>
-    		<facebook-like layout="recommend"></facebook-like>
-		</div>
+			                	<img src="https://image.tmdb.org/t/p/w300{{movie.backdrop_path}}" alt="">
 
-		<script type="text/javascript" src="app/angular.min.js"></script>
-		<script type="text/javascript" src="app/app.js"></script>
-	</body>
+			                	<p>Rating: {{movie.vote_average}}</p>
+			                	
+			                </div>
+		                </div>
+		            </section>
+
+		            <section ng-hide="movieDetail.title === undefined">
+		            	<div class="container">
+		            		<div class="row">
+		            			<div class="col-md-6">
+		            				<h1>{{movieDetail.title}}</h1>
+		            				<img src="https://image.tmdb.org/t/p/w500{{movieDetail.backdrop_path}}" alt="">
+		            			</div>
+		            			<div class="col-md-6">
+		            				<h2>Overview</h2>
+		            				<p class="movieDetailDesc">{{movieDetail.overview}}</p>
+		            				<p><strong>Released: {{movieDetail.release_date}}</strong></p>
+		            			</div>
+		            		</div>
+		            		
+		            	</div>
+		            </section>
+
+		            <section ng-show="movies.results === null && movieDetail === null">
+		            	<h3>Enter the name of a movie in the search box above</h3>
+		            </section>
+
+		            <section ng-show="movies.results.length === 0">
+		            	<h3>No movie found</h3>
+		            </section>
+
+		                
+            	</div>
+	            	
+                
+            </div>
+            
+
+	<script type="text/javascript" src="app/angular.js"></script>
+	<script type="text/javascript" src="angular-ui-router/angular-ui-router.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
+	<script type="text/javascript" src="app/controllers/movieController.js"></script>
+	<script type="text/javascript" src="app/directives/movieService.js"></script>
+</body>
 </html>
